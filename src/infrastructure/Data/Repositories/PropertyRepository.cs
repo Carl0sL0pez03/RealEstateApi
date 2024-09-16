@@ -58,7 +58,7 @@ namespace Infrastructure.Repositories
         /* Update property */
 
         /* List all */
-        public async Task<List<Property>> GetAllAsync(string filterName, decimal? minPrice, decimal? maxPrice)
+        public async Task<List<Property>> GetAllAsync(string filterName, decimal? minPrice, decimal? maxPrice, int page, int pageSize)
         {
             var query = _dbContext.Properties.AsQueryable();
 
@@ -71,7 +71,9 @@ namespace Infrastructure.Repositories
             if (maxPrice.HasValue)
                 query = query.Where(p => p.Price <= maxPrice.Value);
 
-            return await query.ToListAsync();
+            return await query.Skip((page - 1) * pageSize)
+                      .Take(pageSize)
+                      .ToListAsync();
         }
         /* List all */
     }
