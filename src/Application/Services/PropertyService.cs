@@ -43,9 +43,9 @@ namespace Application.Services
         /* Update property */
 
         /* List All */
-        public async Task<List<Property>> ListPropertiesAsync(string filterName, decimal? minPrice, decimal? maxPrice)
+        public async Task<List<Property>> ListPropertiesAsync(string filterName, decimal? minPrice, decimal? maxPrice, int page, int pageSize)
         {
-            return await _propertyRepository.GetAllAsync(filterName, minPrice, maxPrice);
+            return await _propertyRepository.GetAllAsync(filterName, minPrice, maxPrice, page, pageSize);
         }
         /* List All */
 

@@ -64,9 +64,9 @@ namespace Api.Controllers
 
         /* List All */
         [HttpGet]
-        public async Task<IActionResult> ListProperties([FromQuery] string filterName, [FromQuery] decimal? minPrice, [FromQuery] decimal? maxPrice)
+        public async Task<IActionResult> ListProperties([FromQuery] string filterName, [FromQuery] decimal? minPrice, [FromQuery] decimal? maxPrice, [FromQuery] int page = 1, [FromQuery] int pageSize = 10)
         {
-            var properties = await _propertyService.ListPropertiesAsync(filterName, minPrice, maxPrice);
+            var properties = await _propertyService.ListPropertiesAsync(filterName, minPrice, maxPrice, page, pageSize);
             return Ok(properties);
         }
         /* List All */
