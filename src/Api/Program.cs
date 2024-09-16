@@ -2,6 +2,7 @@ using Application.Services;
 using Domain.Repositories;
 using Infrastructure.Repositories;
 using Microsoft.EntityFrameworkCore;
+using Middleware;
 
 var builder = WebApplication.CreateBuilder(args);
 
@@ -28,6 +29,11 @@ builder.Services.AddSwaggerGen();
 /* Inject dependences */
 
 var app = builder.Build();
+
+
+/* Add Middleware */
+app.UseMiddleware<ExceptionMiddleware>();
+/* Add Middleware */
 
 if (app.Environment.IsDevelopment())
 {

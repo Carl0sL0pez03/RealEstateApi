@@ -71,6 +71,8 @@ namespace Infrastructure.Repositories
             if (maxPrice.HasValue)
                 query = query.Where(p => p.Price <= maxPrice.Value);
 
+            query = query.OrderBy(p => p.IdProperty);
+
             return await query.Skip((page - 1) * pageSize)
                       .Take(pageSize)
                       .ToListAsync();

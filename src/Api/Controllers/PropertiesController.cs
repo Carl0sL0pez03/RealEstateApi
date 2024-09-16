@@ -6,15 +6,10 @@ namespace Api.Controllers
 
     [ApiController]
     [Route("api/[controller]")]
-    public class PropertiesController : ControllerBase
+    public class PropertiesController(PropertyService propertyService) : ControllerBase
     {
 
-        private readonly PropertyService _propertyService;
-
-        public PropertiesController(PropertyService propertyService)
-        {
-            _propertyService = propertyService;
-        }
+        private readonly PropertyService _propertyService = propertyService;
 
         /* Controller New property */
         [HttpPost]
