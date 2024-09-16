@@ -4,15 +4,9 @@ using Domain.Repositories;
 
 namespace Application.Services
 {
-    public class PropertyService
+    public class PropertyService(IPropertyRepository propertyRepository)
     {
-
-        private readonly IPropertyRepository _propertyRepository;
-
-        public PropertyService(IPropertyRepository propertyRepository)
-        {
-            _propertyRepository = propertyRepository;
-        }
+        private readonly IPropertyRepository _propertyRepository = propertyRepository;
 
         /* Create New property */
         public async Task CreatePropertyAsync(Property property)
