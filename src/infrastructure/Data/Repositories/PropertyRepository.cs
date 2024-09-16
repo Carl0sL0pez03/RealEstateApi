@@ -4,15 +4,10 @@ using Microsoft.EntityFrameworkCore;
 
 namespace Infrastructure.Repositories
 {
-    public class PropertyRepository : IPropertyRepository
+    public class PropertyRepository(RealEstateDbContext dbContext) : IPropertyRepository
     {
 
-        private readonly RealEstateDbContext _dbContext;
-
-        public PropertyRepository(RealEstateDbContext dbContext)
-        {
-            _dbContext = dbContext;
-        }
+        private readonly RealEstateDbContext _dbContext = dbContext;
 
         /* Create new property */
         public async Task AddAsync(Property property)
