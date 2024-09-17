@@ -5,10 +5,19 @@ using Microsoft.IdentityModel.Tokens;
 
 namespace Infrastructure.Jwt
 {
+    /// <summary>
+    /// Class responsible for generating JWT tokens for users.
+    /// Implements the <see cref="IJwtGenerator"/> interface.
+    /// </summary>
     public class JwtGenerator(IConfiguration configuration) : IJwtGenerator
     {
         private readonly IConfiguration _config = configuration;
 
+        /// <summary>
+        /// Generates a JWT token for the specified user.
+        /// </summary>
+        /// <param name="user">The user for whom the token will be generated.</param>
+        /// <returns>A string representing the generated JWT token.</returns>
         public string GenerateToken(User user)
         {
             var claims = new[]{
@@ -16,7 +25,9 @@ namespace Infrastructure.Jwt
                 new Claim(JwtRegisteredClaimNames.Jti, Guid.NewGuid().ToString())
             };
 
-            var key = new SymmetricSecurityKey(System.Text.Encoding.UTF8.GetBytes(_config["Jwt:Key"]));
+            var keyString = _config["Jwt:Key"] ?? throw new InvalidOperationException("JWT Key is not configured.");
+
+            var key = new SymmetricSecurityKey(System.Text.Encoding.UTF8.GetBytes(keyString));
             var creds = new SigningCredentials(key, SecurityAlgorithms.HmacSha256);
 
             var token = new JwtSecurityToken(
