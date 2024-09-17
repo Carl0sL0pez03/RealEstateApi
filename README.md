@@ -180,6 +180,11 @@ dotnet test
 
 A Postman folder is added where all the methods are located.
 
+## Usage
+
+- Create a user and login to get an authenticity token.
+- Use the token to be able to consume Property methods.
+
 ## Security Measures
 
 - JWT Authentication: All endpoints are protected using JWT, with token expiration and signature validation.
