@@ -176,6 +176,8 @@ dotnet test
 | :-------- | :---- | :------------ |
 | `Price`   | `int` | **Required**. |
 
+## Security Measures
+
 - JWT Authentication: All endpoints are protected using JWT, with token expiration and signature validation.
 - HTTPS: The application enforces HTTPS to secure communication between the client and server.
 - Password Hashing: User passwords are stored securely using hashed and salted values.
