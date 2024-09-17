@@ -3,12 +3,22 @@ using System.Text.Json;
 
 namespace Middleware
 {
+    /// <summary>
+    /// Global middleware for handling exceptions in the application.
+    /// Catches all unhandled exceptions and returns a standard error response
+    /// with an HTTP status code 500.
+    /// </summary>
     public class ExceptionMiddleware(RequestDelegate next, ILogger<ExceptionMiddleware> logger)
     {
-
         private readonly RequestDelegate _next = next;
         private readonly ILogger<ExceptionMiddleware> _logger = logger;
 
+        /// <summary>
+        /// Invokes the middleware. This method catches any exceptions thrown in the HTTP request pipeline
+        /// and handles them by returning a JSON error message.
+        /// </summary>
+        /// <param name="httpContext">The current HTTP request context.</param>
+        /// <returns>A <see cref="Task"/> representing the asynchronous operation.</returns>
         public async Task InvokeAsync(HttpContext httpContext)
         {
             try
@@ -22,6 +32,12 @@ namespace Middleware
             }
         }
 
+        /// <summary>
+        /// Handles the thrown exception and generates an HTTP response with a standard error message in JSON format.
+        /// </summary>
+        /// <param name="context">The current HTTP request context.</param>
+        /// <param name="exception">The exception that was thrown during request execution.</param>
+        /// <returns>A <see cref="Task"/> representing the asynchronous operation of writing the response.</returns>
         private static Task HandleExceptionAsync(HttpContext context, Exception exception)
         {
             context.Response.ContentType = "application/json";
