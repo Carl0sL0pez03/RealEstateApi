@@ -30,7 +30,9 @@ namespace Middleware
             var response = new
             {
                 context.Response.StatusCode,
-                Message = "Internal Server Error from the middleware."
+                Message = "An unexpected error occured. Please try again later.",
+                ErrorId = Guid.NewGuid(),
+                Details = exception.Message
             };
 
             var options = new JsonSerializerOptions
