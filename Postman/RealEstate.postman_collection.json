@@ -1,0 +1,242 @@
+{
+	"info": {
+		"_postman_id": "f7fa5a0b-5033-44c9-8b75-90e8283f8e47",
+		"name": "RealEstate",
+		"schema": "https://schema.getpostman.com/json/collection/v2.1.0/collection.json",
+		"_exporter_id": "34287300"
+	},
+	"item": [
+		{
+			"name": "Property",
+			"item": [
+				{
+					"name": "Create Property",
+					"request": {
+						"auth": {
+							"type": "bearer",
+							"bearer": [
+								{
+									"key": "token",
+									"value": "eyJhbGciOiJIUzI1NiIsInR5cCI6IkpXVCJ9.eyJzdWIiOiJ1c2VyUHJ1ZWJhcyIsImp0aSI6IjNlYThlMGNjLTMzNjQtNGY3ZC1iMzc0LTg0NWIxMmFjMzMxZiIsImV4cCI6MTcyNjUzNjc0OCwiaXNzIjoiVDNzMSIsImF1ZCI6IkMwbXBhbjEifQ.l0F_WV0TqEaYmDZNxX5CobLUozHX8jcb4htlI_yftto",
+									"type": "string"
+								}
+							]
+						},
+						"method": "POST",
+						"header": [],
+						"body": {
+							"mode": "raw",
+							"raw": "{\r\n    \"Name\": \"Torre 8\",\r\n    \"Address\": \"IIgsb\",\r\n    \"price\": 2500000,\r\n    \"CodeInternal\": \"Torr-233\",\r\n    \"Year\": 2021,\r\n    \"idOwner\": 9\r\n}",
+							"options": {
+								"raw": {
+									"language": "json"
+								}
+							}
+						},
+						"url": {
+							"raw": "http://localhost:5096/api/properties",
+							"protocol": "http",
+							"host": [
+								"localhost"
+							],
+							"port": "5096",
+							"path": [
+								"api",
+								"properties"
+							]
+						}
+					},
+					"response": []
+				},
+				{
+					"name": "Update Property",
+					"request": {
+						"method": "PUT",
+						"header": [],
+						"body": {
+							"mode": "raw",
+							"raw": "{\r\n    \"idProperty\": \"4\",\r\n    \"Name\": \"Edificio 4\",\r\n    \"Address\": \"Cra 10\",\r\n    \"price\": 15000000,\r\n    \"CodeInternal\": \"AD23df_23\",\r\n    \"Year\": 2024,\r\n    \"idOwner\": 9\r\n}",
+							"options": {
+								"raw": {
+									"language": "json"
+								}
+							}
+						},
+						"url": {
+							"raw": "http://localhost:5096/api/properties/4",
+							"protocol": "http",
+							"host": [
+								"localhost"
+							],
+							"port": "5096",
+							"path": [
+								"api",
+								"properties",
+								"4"
+							]
+						}
+					},
+					"response": []
+				},
+				{
+					"name": "Add Image",
+					"request": {
+						"method": "POST",
+						"header": [],
+						"body": {
+							"mode": "raw",
+							"raw": "{\r\n    \"IdProperty\": 4,\r\n    \"File\": \"image_path.jpg\",\r\n    \"Enabled\": true\r\n}",
+							"options": {
+								"raw": {
+									"language": "json"
+								}
+							}
+						},
+						"url": {
+							"raw": "http://localhost:5096/api/properties/4/add-image",
+							"protocol": "http",
+							"host": [
+								"localhost"
+							],
+							"port": "5096",
+							"path": [
+								"api",
+								"properties",
+								"4",
+								"add-image"
+							]
+						}
+					},
+					"response": []
+				},
+				{
+					"name": "Change Price",
+					"request": {
+						"method": "PUT",
+						"header": [],
+						"body": {
+							"mode": "raw",
+							"raw": "15000",
+							"options": {
+								"raw": {
+									"language": "json"
+								}
+							}
+						},
+						"url": {
+							"raw": "http://localhost:5096/api/properties/4/change-price",
+							"protocol": "http",
+							"host": [
+								"localhost"
+							],
+							"port": "5096",
+							"path": [
+								"api",
+								"properties",
+								"4",
+								"change-price"
+							]
+						}
+					},
+					"response": []
+				},
+				{
+					"name": "Get All With Filter",
+					"request": {
+						"method": "GET",
+						"header": [],
+						"url": {
+							"raw": "http://localhost:5096/api/properties?filterName=Edific",
+							"protocol": "http",
+							"host": [
+								"localhost"
+							],
+							"port": "5096",
+							"path": [
+								"api",
+								"properties"
+							],
+							"query": [
+								{
+									"key": "filterName",
+									"value": "Edific"
+								},
+								{
+									"key": "minPrice",
+									"value": "2330000",
+									"disabled": true
+								}
+							]
+						}
+					},
+					"response": []
+				}
+			]
+		},
+		{
+			"name": "User",
+			"item": [
+				{
+					"name": "Register",
+					"request": {
+						"method": "POST",
+						"header": [],
+						"body": {
+							"mode": "raw",
+							"raw": "{\r\n    \"username\": \"userPruebas\",\r\n    \"password\": \"123pruebas\"\r\n}",
+							"options": {
+								"raw": {
+									"language": "json"
+								}
+							}
+						},
+						"url": {
+							"raw": "http://localhost:5096/api/auth/register",
+							"protocol": "http",
+							"host": [
+								"localhost"
+							],
+							"port": "5096",
+							"path": [
+								"api",
+								"auth",
+								"register"
+							]
+						}
+					},
+					"response": []
+				},
+				{
+					"name": "Login",
+					"request": {
+						"method": "POST",
+						"header": [],
+						"body": {
+							"mode": "raw",
+							"raw": "{\r\n    \"username\": \"userPruebas\",\r\n    \"password\": \"123pruebas\"\r\n}",
+							"options": {
+								"raw": {
+									"language": "json"
+								}
+							}
+						},
+						"url": {
+							"raw": "http://localhost:5096/api/auth/login",
+							"protocol": "http",
+							"host": [
+								"localhost"
+							],
+							"port": "5096",
+							"path": [
+								"api",
+								"auth",
+								"login"
+							]
+						}
+					},
+					"response": []
+				}
+			]
+		}
+	]
+}

@@ -176,6 +176,10 @@ dotnet test
 | :-------- | :---- | :------------ |
 | `Price`   | `int` | **Required**. |
 
+## Postman
+
+A Postman folder is added where all the methods are located.
+
 ## Security Measures
 
 - JWT Authentication: All endpoints are protected using JWT, with token expiration and signature validation.
