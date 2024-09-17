@@ -39,6 +39,10 @@ builder.Services.AddResponseCompression(options =>
 {
     options.EnableForHttps = true;
 });
+builder.Services.AddAntiforgery(options => 
+{
+    options.Cookie.Name = "X-CSRF-TOKEN";
+});
 /* Inject dependences */
 
 /* Add Authentication */
