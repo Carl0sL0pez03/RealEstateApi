@@ -1,6 +1,7 @@
 using System.IdentityModel.Tokens.Jwt;
 using System.Security.Claims;
 using Domain.Entities;
+using Microsoft.Extensions.Caching.Memory;
 using Microsoft.IdentityModel.Tokens;
 
 namespace Infrastructure.Jwt
@@ -9,9 +10,10 @@ namespace Infrastructure.Jwt
     /// Class responsible for generating JWT tokens for users.
     /// Implements the <see cref="IJwtGenerator"/> interface.
     /// </summary>
-    public class JwtGenerator(IConfiguration configuration) : IJwtGenerator
+    public class JwtGenerator(IConfiguration configuration, IMemoryCache cache) : IJwtGenerator
     {
         private readonly IConfiguration _config = configuration;
+        private readonly IMemoryCache _cache = cache;
 
         /// <summary>
         /// Generates a JWT token for the specified user.
@@ -20,6 +22,13 @@ namespace Infrastructure.Jwt
         /// <returns>A string representing the generated JWT token.</returns>
         public string GenerateToken(User user)
         {
+
+            var cacheKey = $"JwtToken_{user.Username}";
+            if (_cache.TryGetValue(cacheKey, out string? cachedToken) && cachedToken != null)
+            {
+                return cachedToken;
+            }
+
             var claims = new[]{
                 new Claim(JwtRegisteredClaimNames.Sub, user.Username),
                 new Claim(JwtRegisteredClaimNames.Jti, Guid.NewGuid().ToString())
@@ -38,7 +47,12 @@ namespace Infrastructure.Jwt
               signingCredentials: creds
           );
 
-            return new JwtSecurityTokenHandler().WriteToken(token);
+            var jwtToken = new JwtSecurityTokenHandler().WriteToken(token);
+
+            var cacheEntryOptions = new MemoryCacheEntryOptions().SetSlidingExpiration(TimeSpan.FromMinutes(30));
+            _cache.Set(cacheKey, jwtToken, cacheEntryOptions);
+
+            return jwtToken;
         }
     }
 }

@@ -1,7 +1,7 @@
 using System.Net;
 using System.Text.Json;
 
-namespace Middleware
+namespace RealEstateApi.src.Api.Middlewares
 {
     /// <summary>
     /// Global middleware for handling exceptions in the application.
